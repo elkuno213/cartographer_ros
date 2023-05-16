@@ -26,8 +26,7 @@
 namespace cartographer_ros {
 
 struct TrajectoryOptions {
-  ::cartographer::mapping::proto::TrajectoryBuilderOptions
-      trajectory_builder_options;
+  ::cartographer::mapping::proto::TrajectoryBuilderOptions trajectory_builder_options;
   std::string tracking_frame;
   std::string published_frame;
   std::string odom_frame;
@@ -49,8 +48,9 @@ struct TrajectoryOptions {
 };
 
 TrajectoryOptions CreateTrajectoryOptions(
-    ::cartographer::common::LuaParameterDictionary* lua_parameter_dictionary);
+  ::cartographer::common::LuaParameterDictionary* lua_parameter_dictionary
+);
 
-}  // namespace cartographer_ros
+} // namespace cartographer_ros
 
-#endif  // CARTOGRAPHER_ROS_CARTOGRAPHER_ROS_TRAJECTORY_OPTIONS_H
+#endif // CARTOGRAPHER_ROS_CARTOGRAPHER_ROS_TRAJECTORY_OPTIONS_H
