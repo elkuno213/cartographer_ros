@@ -298,10 +298,13 @@ void Node::AddSensorSamplers(
 ) {
   CHECK(sensor_samplers_.count(trajectory_id) == 0);
   sensor_samplers_.emplace(
-    std::piecewise_construct, std::forward_as_tuple(trajectory_id),
+    std::piecewise_construct,
+    std::forward_as_tuple(trajectory_id),
     std::forward_as_tuple(
-      options.rangefinder_sampling_ratio, options.odometry_sampling_ratio,
-      options.fixed_frame_pose_sampling_ratio, options.imu_sampling_ratio,
+      options.rangefinder_sampling_ratio,
+      options.odometry_sampling_ratio,
+      options.fixed_frame_pose_sampling_ratio,
+      options.imu_sampling_ratio,
       options.landmarks_sampling_ratio
     )
   );
