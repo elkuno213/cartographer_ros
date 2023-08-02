@@ -45,6 +45,6 @@
   <node name="rviz" pkg="rviz" type="rviz" required="true"
     args="-d $(find cartographer_ros)/configuration_files/aldebaran.rviz" />
   <node name="playbag" pkg="rosbag" type="play"
-    args="$(arg bag_filename) --pause --clock --start=$(arg start)" />
+    args="$(arg bag_filename) --pause --clock --start=$(arg start) --topics horizontal_laser_2d imu" />
 
 </launch>
