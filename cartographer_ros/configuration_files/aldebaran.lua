@@ -109,7 +109,7 @@ MAP_BUILDER = {
 }
 
 TRAJECTORY_BUILDER_2D = {
-  use_imu_data = true,
+  use_imu_data = false,
   min_range = 0.1,
   max_range = 8.,
   min_z = -0.8,
@@ -227,8 +227,8 @@ options = {
   map_builder = MAP_BUILDER,
   trajectory_builder = TRAJECTORY_BUILDER,
   map_frame = "map",
-  -- tracking_frame = "base_link",
-  tracking_frame = "imu_link",
+  tracking_frame = "base_link",
+  -- tracking_frame = "imu_link",
   published_frame = "base_link", -- if use_odometry = true
   odom_frame = "odom",
   provide_odom_frame = true,
