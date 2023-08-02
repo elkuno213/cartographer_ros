@@ -101,7 +101,7 @@ MAP_BUILDER = {
 }
 
 TRAJECTORY_BUILDER_2D = {
-  use_imu_data = true,
+  use_imu_data = false,
   min_range = 0.1,
   max_range = 8.,
   min_z = -0.8,
@@ -153,7 +153,6 @@ TRAJECTORY_BUILDER_2D = {
   imu_gravity_time_constant = 10.,
   pose_extrapolator = {
     use_imu_based = false,
-    -- use_imu_based = true, -- test
     constant_velocity = {
       imu_gravity_time_constant = 10.,
       pose_queue_duration = 0.001,
@@ -216,15 +215,13 @@ options = {
   map_builder = MAP_BUILDER,
   trajectory_builder = TRAJECTORY_BUILDER,
   map_frame = "map",
-  -- tracking_frame = "base_link",
-  tracking_frame = "imu_link",
-  published_frame = "base_link", -- if use_odometry = true
+  tracking_frame = "base_link",
+  published_frame = "base_link",
   odom_frame = "odom",
   provide_odom_frame = true,
   publish_frame_projected_to_2d = false,
-  use_pose_extrapolator = true,
-  -- use_odometry = false,
-  use_odometry = true, -- if use_odometry = true
+  use_pose_extrapolator = false,
+  use_odometry = false,
   use_nav_sat = false,
   use_landmarks = false,
   num_laser_scans = 0,
