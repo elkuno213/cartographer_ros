@@ -18,16 +18,24 @@ include "trajectory_builder.lua"
 POSE_GRAPH = {
   optimize_every_n_nodes = 90,
   constraint_builder = {
-    sampling_ratio = 0.3,
+    -- Decide whether adding (not global) constraint or not.
+    sampling_ratio = 0.3, -- for submap pickup's sampler
     max_constraint_distance = 15.,
+    -- Used for fast correlative scan matcher when not matching full submap.
     min_score = 0.65,
+    -- Used for fast correlative scan matcher when matching full submap.
     global_localization_min_score = 0.7,
+    -- Used for loop closure, after these 2 following scan matchers.
     loop_closure_translation_weight = 1.1e4,
     loop_closure_rotation_weight = 1e5,
     log_matches = true,
     fast_correlative_scan_matcher = {
+      -- Only used when matching not-full submap. In case of matching full
+      -- submap, from submap's center linear search tends to infinite and
+      -- angular search covers 360°.
       linear_search_window = 7.,
       angular_search_window = math.rad(30.),
+      -- Used for precomputed grid stack 2D.
       branch_and_bound_depth = 7,
     },
     ceres_scan_matcher = {
@@ -123,10 +131,13 @@ TRAJECTORY_BUILDER_2D = {
     max_range = 50.,
   },
 
+  -- RealTimeCorrelativeScanMatcher2D is used before CeresScanMatcher2D to get
+  -- better initial pose estimate.
   use_online_correlative_scan_matching = true,
   real_time_correlative_scan_matcher = {
-    linear_search_window = 0.1,
+    linear_search_window = 0.1, -- [m] used for min_x, max_x, min_y, max_y
     angular_search_window = math.rad(20.),
+    -- Theses 2 weights are only used in case that no grid type is given.
     translation_delta_cost_weight = 1e-1,
     rotation_delta_cost_weight = 1e-1,
   },
