@@ -18,7 +18,7 @@ include "trajectory_builder.lua"
 POSE_GRAPH = {
   optimize_every_n_nodes = 90,
   constraint_builder = {
-    -- Decide whether adding (not global) constraint or not.
+    -- Decide whether adding local constraint or not.
     sampling_ratio = 0.3, -- for submap pickup's sampler
     max_constraint_distance = 15.,
     -- Used for fast correlative scan matcher when not matching full submap.
@@ -78,8 +78,8 @@ POSE_GRAPH = {
     rotation_weight = 3e5,
     local_slam_pose_translation_weight = 1e5,
     local_slam_pose_rotation_weight = 1e5,
-    odometry_translation_weight = 1e5,
-    odometry_rotation_weight = 1e5,
+    odometry_translation_weight = 1.,
+    odometry_rotation_weight = 1.,
     fixed_frame_pose_translation_weight = 1e1,
     fixed_frame_pose_rotation_weight = 1e2,
     fixed_frame_pose_use_tolerant_loss = false, -- new version
@@ -117,7 +117,7 @@ TRAJECTORY_BUILDER_2D = {
   missing_data_ray_length = 5.,
   num_accumulated_range_data = 1,
   -- num_accumulated_range_data = 10, -- 10 proposed by default by ROS Cartographer
-  voxel_filter_size = 0.025,
+  voxel_filter_size = 0.01,
 
   adaptive_voxel_filter = {
     max_length = 0.5,
@@ -143,12 +143,12 @@ TRAJECTORY_BUILDER_2D = {
   },
 
   ceres_scan_matcher = {
-    occupied_space_weight = 1.,
-    translation_weight = 10.,
-    rotation_weight = 40.,
+    occupied_space_weight = 100.,
+    translation_weight = 1.,
+    rotation_weight = 1.,
     ceres_solver_options = {
       use_nonmonotonic_steps = false,
-      max_num_iterations = 20,
+      max_num_iterations = 40,
       num_threads = 1,
     },
   },
@@ -187,7 +187,7 @@ TRAJECTORY_BUILDER_2D = {
   },
 
   submaps = {
-    num_range_data = 90,
+    num_range_data = 180,
     grid_options_2d = {
       grid_type = "PROBABILITY_GRID",
       resolution = 0.05,
